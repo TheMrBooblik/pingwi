@@ -15,7 +15,52 @@
         <li>
             Casa nel verde (<a href="https://casa-nel-verde.it" target="_blank">https://casa-nel-verde.it</a>)
         </li>
+        <li>
+            Imperatorska (<a href="https://imperatorska.com.ua"
+                             target="_blank">https://imperatorska.com.ua</a>)
+        </li>
     </ul>
     <hr>
+    <h4>My film photos:</h4>
+    <img src="images/film/R-0003.jpeg"
+         id="film_1"
+         alt="beach - Calabria, Italy"
+         style="width: 50%; cursor: zoom-in;"
+         onclick="imgClick()"
+    >
+    <img src="images/film/R-0002.jpeg"
+         id="film_2"
+         alt="tram - Vienna, Austria"
+         style="width: 50%; cursor: zoom-in;"
+         onclick="imgClick()"
+    >
+    <img src="images/film/R-0001.jpeg"
+         id="film_3"
+         alt="sea - Zanzibar, Tanzania"
+         style="width: 50%; cursor: zoom-in;"
+         onclick="imgClick()"
+    >
+
+    <script>
+        function imgClick(imgId) {
+            const img = document.getElementById(imgId);
+
+            if (!img) return;
+
+            if (img.style.width === "100%") {
+                img.style.width = "50%";
+                img.style.transition = "transform 0.25s ease";
+                img.style.cursor = "zoom-in";
+            } else {
+                img.style.width = "100%";
+                img.style.transition = "transform 0.25s ease";
+                img.style.cursor = "zoom-out";
+            }
+        }
+
+        document.addEventListener('click', function(e) {
+            imgClick(e.target.id)
+        }, false);
+    </script>
 </body>
 </html>
