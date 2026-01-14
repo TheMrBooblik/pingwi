@@ -1,75 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Pingwi // dev website</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
-</head>
-<body>
-    <h1 style="background-color:aliceblue; padding: 5px 0;">Pingwi</h1>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+  </head>
+  <body>
+    <h1 style="background-color: aliceblue; padding: 5px 0">Pingwi</h1>
     <p>Hi friend, nice to see you here :)</p>
     <p>My name is Dima, currently working as a front-end dev.</p>
-    <hr>
+    <hr />
     <h4>My projects:</h4>
-    <ul style="display: flex; flex-direction: column; gap: 5px;">
-        <li>
-            Night train map (<a href="https://sleeper-train-map.vercel.app"
-                                  target="_blank">https://sleeper-train-map.vercel.app</a>)
-        </li>
-        <li>
-            Vantazh Time (<a href="https://vantazh-time.com.ua"
-                                                     target="_blank">https://vantazh-time.com.ua</a>)
-        </li>
-        <li>
-            Imperatorska (<a href="https://imperatorska.com.ua"
-                             target="_blank">https://imperatorska.com.ua</a>)
-        </li>
-        <li>
-            Casa nel verde (<a href="https://casa-nel-verde.it" target="_blank">https://casa-nel-verde.it</a>)
-        </li>
+    <ul style="display: flex; flex-direction: column; gap: 12px">
+      <li>
+        Night train map (<a
+          href="https://sleeper-train-map.pingwi.com"
+          target="_blank"
+          >https://sleeper-train-map.pingwi.com</a
+        >)
+        <!-- Night train map thumbnail -->
+        <a href="https://sleeper-train-map.pingwi.com" target="_blank">
+          <img
+            src="images/projects/sleeper-train-map.png"
+            alt="Screenshot of the Night train map project"
+            style="
+              display: block;
+              margin-top: 4px;
+              width: 400px;
+              border-radius: 4px;
+              cursor: pointer;
+            "
+          />
+        </a>
+      </li>
+      <li>
+        Vantazh Time (<a href="https://vantazh-time.com.ua" target="_blank"
+          >https://vantazh-time.com.ua</a
+        >)
+        <!-- Vantazh Time thumbnail -->
+        <a href="https://vantazh-time.com.ua" target="_blank">
+          <img
+            src="images/projects/vantazh-time.png"
+            alt="Screenshot of the Vantazh Time moving service website"
+            style="
+              display: block;
+              margin-top: 4px;
+              width: 400px;
+              border-radius: 4px;
+              cursor: pointer;
+            "
+          />
+        </a>
+      </li>
+      <li>
+        Imperatorska (<a href="https://imperatorska.com.ua" target="_blank"
+          >https://imperatorska.com.ua</a
+        >)
+        <!-- Imperatorska thumbnail -->
+        <a href="https://imperatorska.com.ua" target="_blank">
+          <img
+            src="images/projects/imperatorska.png"
+            alt="Screenshot of the Imperatorska water delivery website"
+            style="
+              display: block;
+              margin-top: 4px;
+              width: 400px;
+              border-radius: 4px;
+              cursor: pointer;
+            "
+          />
+        </a>
+      </li>
+      <li>
+        Casa nel verde (<a href="https://casa-nel-verde.it" target="_blank"
+          >https://casa-nel-verde.it</a
+        >)
+        <!-- Casa nel Verde thumbnail -->
+        <a href="https://casa-nel-verde.it" target="_blank">
+          <img
+            src="images/projects/casa-nel-verde.png"
+            alt="Screenshot of the Casa nel Verde apartment website"
+            style="
+              display: block;
+              margin-top: 4px;
+              width: 400px;
+              border-radius: 4px;
+              cursor: pointer;
+            "
+          />
+        </a>
+      </li>
     </ul>
-    <hr>
+    <hr />
     <h4>My film photos:</h4>
-    <img src="images/film/R-0003.jpeg"
-         id="film_1"
-         alt="beach - Calabria, Italy"
-         style="width: 50%; cursor: zoom-in;"
-         onclick="imgClick()"
-    >
-    <img src="images/film/R-0002.jpeg"
-         id="film_2"
-         alt="tram - Vienna, Austria"
-         style="width: 50%; cursor: zoom-in;"
-         onclick="imgClick()"
-    >
-    <img src="images/film/R-0001.jpeg"
-         id="film_3"
-         alt="sea - Zanzibar, Tanzania"
-         style="width: 50%; cursor: zoom-in;"
-         onclick="imgClick()"
-    >
+    <img
+      src="images/film/R-0003.jpeg"
+      id="film_1"
+      alt="beach - Calabria, Italy"
+      style="width: 50%; cursor: zoom-in"
+      onclick="imgClick()"
+    />
+    <img
+      src="images/film/R-0002.jpeg"
+      id="film_2"
+      alt="tram - Vienna, Austria"
+      style="width: 50%; cursor: zoom-in"
+      onclick="imgClick()"
+    />
+    <img
+      src="images/film/R-0001.jpeg"
+      id="film_3"
+      alt="sea - Zanzibar, Tanzania"
+      style="width: 50%; cursor: zoom-in"
+      onclick="imgClick()"
+    />
 
     <script>
-        function imgClick(imgId) {
-            const img = document.getElementById(imgId);
+      function imgClick(imgId) {
+        const img = document.getElementById(imgId);
 
-            if (!img) return;
+        if (!img) return;
 
-            if (img.style.width === "100%") {
-                img.style.width = "50%";
-                img.style.transition = "transform 0.25s ease";
-                img.style.cursor = "zoom-in";
-            } else {
-                img.style.width = "100%";
-                img.style.transition = "transform 0.25s ease";
-                img.style.cursor = "zoom-out";
-            }
+        if (img.style.width === "100%") {
+          img.style.width = "50%";
+          img.style.transition = "transform 0.25s ease";
+          img.style.cursor = "zoom-in";
+        } else {
+          img.style.width = "100%";
+          img.style.transition = "transform 0.25s ease";
+          img.style.cursor = "zoom-out";
         }
+      }
 
-        document.addEventListener('click', function(e) {
-            imgClick(e.target.id)
-        }, false);
+      document.addEventListener(
+        "click",
+        function (e) {
+          imgClick(e.target.id);
+        },
+        false
+      );
     </script>
-</body>
+  </body>
 </html>
