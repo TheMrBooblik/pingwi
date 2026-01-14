@@ -5,6 +5,33 @@
     <title>Pingwi // dev website</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+    <style>
+      .projects {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      /* Single project "card" – just a small text + image block. */
+      .project-item {
+        margin: 0;
+      }
+
+      /* Project thumbnail:
+         - Width is responsive (100% of container) but not too big.
+         - max-width keeps it compact even on large screens. */
+      .project-thumb {
+        display: block;
+        margin-top: 4px;
+        width: 100%;
+        max-width: 320px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+    </style>
   </head>
   <body>
     <h1 style="background-color: aliceblue; padding: 5px 0">Pingwi</h1>
@@ -12,8 +39,8 @@
     <p>My name is Dima, currently working as a front-end dev.</p>
     <hr />
     <h4>My projects:</h4>
-    <ul style="display: flex; flex-direction: column; gap: 12px">
-      <li>
+    <ul class="projects">
+      <li class="project-item">
         Night train map (<a
           href="https://sleeper-train-map.pingwi.com"
           target="_blank"
@@ -24,17 +51,11 @@
           <img
             src="images/projects/sleeper-train-map.png"
             alt="Screenshot of the Night train map project"
-            style="
-              display: block;
-              margin-top: 4px;
-              width: 400px;
-              border-radius: 4px;
-              cursor: pointer;
-            "
+            class="project-thumb"
           />
         </a>
       </li>
-      <li>
+      <li class="project-item">
         Vantazh Time (<a href="https://vantazh-time.com.ua" target="_blank"
           >https://vantazh-time.com.ua</a
         >)
@@ -43,17 +64,11 @@
           <img
             src="images/projects/vantazh-time.png"
             alt="Screenshot of the Vantazh Time moving service website"
-            style="
-              display: block;
-              margin-top: 4px;
-              width: 400px;
-              border-radius: 4px;
-              cursor: pointer;
-            "
+            class="project-thumb"
           />
         </a>
       </li>
-      <li>
+      <li class="project-item">
         Imperatorska (<a href="https://imperatorska.com.ua" target="_blank"
           >https://imperatorska.com.ua</a
         >)
@@ -62,17 +77,11 @@
           <img
             src="images/projects/imperatorska.png"
             alt="Screenshot of the Imperatorska water delivery website"
-            style="
-              display: block;
-              margin-top: 4px;
-              width: 400px;
-              border-radius: 4px;
-              cursor: pointer;
-            "
+            class="project-thumb"
           />
         </a>
       </li>
-      <li>
+      <li class="project-item">
         Casa nel verde (<a href="https://casa-nel-verde.it" target="_blank"
           >https://casa-nel-verde.it</a
         >)
@@ -81,13 +90,7 @@
           <img
             src="images/projects/casa-nel-verde.png"
             alt="Screenshot of the Casa nel Verde apartment website"
-            style="
-              display: block;
-              margin-top: 4px;
-              width: 400px;
-              border-radius: 4px;
-              cursor: pointer;
-            "
+            class="project-thumb"
           />
         </a>
       </li>
