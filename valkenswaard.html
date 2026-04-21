@@ -412,7 +412,7 @@
       try {
         const response = await fetch(API_URL, {
           method: 'POST',
-          // Geen custom Content-Type header: voorkomt CORS preflight voor simpele POST.
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify({ action: 'submit', name: normalizedDisplay })
         });
         if (!response.ok) throw new Error('Submit mislukt.');
@@ -443,7 +443,7 @@
       try {
         const response = await fetch(API_URL, {
           method: 'POST',
-          // Geen custom Content-Type header: voorkomt CORS preflight voor simpele POST.
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify({ action: 'vote', id: String(id) })
         });
         if (!response.ok) throw new Error('Stem mislukt.');
