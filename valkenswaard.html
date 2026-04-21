@@ -261,7 +261,7 @@
 
   <script>
     // ===== API-configuratie =====
-    const API_URL = "https://script.google.com/macros/s/AKfycbwWZi-dCaHUPeaAv5LbV5uVGmLMpWQuWeGoSSrelHfvcIIZ1pwBw7zDpRABs59SGeMX/exec";
+    const API_URL = "https://nodejs-production-0e64.up.railway.app";
 
     // ===== Lokale state en hulpsleutels =====
     const VOTE_COOLDOWN_MS = 12 * 60 * 60 * 1000;
@@ -284,26 +284,14 @@
     init();
 
     async function init() {
-      // Voorkom foutmelding bij eerste load als API_URL nog placeholder is.
-      if (!isApiConfigured()) {
-        renderIdeas([]);
-        showMessage('Vul eerst een geldige API_URL in.');
-        return;
-      }
       await loadIdeas();
     }
 
-    // Ideeën ophalen uit Google Apps Script
+    // Ideeën ophalen uit Railway API
     async function loadIdeas() {
-      if (!isApiConfigured()) {
-        renderIdeas([]);
-        showMessage('Vul eerst een geldige API_URL in.');
-        return;
-      }
-
       setLoading(true);
       try {
-        const response = await fetch(`${API_URL}?action=list`, { method: 'GET' });
+        const response = await fetch(`${API_URL}/list`, { method: 'GET' });
         if (!response.ok) throw new Error('Netwerkfout bij laden.');
 
         const data = await response.json();
@@ -319,8 +307,8 @@
           .sort((a, b) => b.votes - a.votes || a.name.localeCompare(b.name, 'nl'));
 
         renderIdeas(ideas);
-      } catch (error) {
-        showMessage(getReadableError(error));
+      } catch {
+        showMessage('Er ging iets mis. Probeer opnieuw.');
         renderIdeas([]);
       } finally {
         setLoading(false);
@@ -374,11 +362,6 @@
 
     // Idee indienen: normaliseren, duplicate/similarity checks en API-call
     async function submitIdea() {
-      if (!isApiConfigured()) {
-        showMessage('Vul eerst een geldige API_URL in.');
-        return;
-      }
-
       const normalizedDisplay = normalizeText(input.value);
       hideSuggestion();
 
@@ -412,7 +395,7 @@
       try {
         const response = await fetch(API_URL, {
           method: 'POST',
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ action: 'submit', name: normalizedDisplay })
         });
         if (!response.ok) throw new Error('Submit mislukt.');
@@ -420,8 +403,8 @@
         showMessage('Bedankt voor je idee!');
         input.value = '';
         await loadIdeas();
-      } catch (error) {
-        showMessage(getReadableError(error));
+      } catch {
+        showMessage('Er ging iets mis. Probeer opnieuw.');
       } finally {
         setLoading(false);
       }
@@ -429,11 +412,6 @@
 
     // Stem uitbrengen op een idee
     async function voteIdea(id) {
-      if (!isApiConfigured()) {
-        showMessage('Vul eerst een geldige API_URL in.');
-        return;
-      }
-
       if (isVoteBlocked(id)) {
         showMessage('Je stem is al uitgebracht. Probeer later opnieuw.');
         return;
@@ -443,7 +421,7 @@
       try {
         const response = await fetch(API_URL, {
           method: 'POST',
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ action: 'vote', id: String(id) })
         });
         if (!response.ok) throw new Error('Stem mislukt.');
@@ -451,8 +429,8 @@
         setVoteBlock(id);
         showMessage('Je stem is geteld!');
         await loadIdeas();
-      } catch (error) {
-        showMessage(getReadableError(error));
+      } catch {
+        showMessage('Er ging iets mis. Probeer opnieuw.');
       } finally {
         setLoading(false);
       }
@@ -546,19 +524,6 @@
       return Date.now() - ts < VOTE_COOLDOWN_MS;
     }
 
-    function isApiConfigured() {
-      const value = String(API_URL || '').trim();
-      return value && !value.includes('PASTE_GOOGLE_APPS_SCRIPT_URL_HERE');
-    }
-
-    function getReadableError(error) {
-      // Browser geeft bij CORS meestal een TypeError: Failed to fetch.
-      const message = String(error && error.message ? error.message : '');
-      if (error instanceof TypeError || message.toLowerCase().includes('failed to fetch')) {
-        return 'Verbinding geblokkeerd (CORS). Controleer Apps Script deploy + toegang.';
-      }
-      return 'Er ging iets mis. Probeer opnieuw.';
-    }
   </script>
 </body>
 </html>
