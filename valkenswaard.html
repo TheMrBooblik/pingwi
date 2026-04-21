@@ -261,7 +261,7 @@
 
   <script>
     // ===== API-configuratie =====
-    const API_URL = "PASTE_GOOGLE_APPS_SCRIPT_URL_HERE";
+    const API_URL = "https://script.google.com/macros/s/AKfycbwWZi-dCaHUPeaAv5LbV5uVGmLMpWQuWeGoSSrelHfvcIIZ1pwBw7zDpRABs59SGeMX/exec";
 
     // ===== Lokale state en hulpsleutels =====
     const VOTE_COOLDOWN_MS = 12 * 60 * 60 * 1000;
@@ -284,11 +284,23 @@
     init();
 
     async function init() {
+      // Voorkom foutmelding bij eerste load als API_URL nog placeholder is.
+      if (!isApiConfigured()) {
+        renderIdeas([]);
+        showMessage('Vul eerst een geldige API_URL in.');
+        return;
+      }
       await loadIdeas();
     }
 
     // Ideeën ophalen uit Google Apps Script
     async function loadIdeas() {
+      if (!isApiConfigured()) {
+        renderIdeas([]);
+        showMessage('Vul eerst een geldige API_URL in.');
+        return;
+      }
+
       setLoading(true);
       try {
         const response = await fetch(`${API_URL}?action=list`, { method: 'GET' });
@@ -362,6 +374,11 @@
 
     // Idee indienen: normaliseren, duplicate/similarity checks en API-call
     async function submitIdea() {
+      if (!isApiConfigured()) {
+        showMessage('Vul eerst een geldige API_URL in.');
+        return;
+      }
+
       const normalizedDisplay = normalizeText(input.value);
       hideSuggestion();
 
@@ -412,6 +429,11 @@
 
     // Stem uitbrengen op een idee
     async function voteIdea(id) {
+      if (!isApiConfigured()) {
+        showMessage('Vul eerst een geldige API_URL in.');
+        return;
+      }
+
       if (isVoteBlocked(id)) {
         showMessage('Je stem is al uitgebracht. Probeer later opnieuw.');
         return;
@@ -522,6 +544,11 @@
       const ts = Number(history[String(id)] || 0);
       if (!ts) return false;
       return Date.now() - ts < VOTE_COOLDOWN_MS;
+    }
+
+    function isApiConfigured() {
+      const value = String(API_URL || '').trim();
+      return value && !value.includes('PASTE_GOOGLE_APPS_SCRIPT_URL_HERE');
     }
   </script>
 </body>
