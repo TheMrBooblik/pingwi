@@ -319,8 +319,8 @@
           .sort((a, b) => b.votes - a.votes || a.name.localeCompare(b.name, 'nl'));
 
         renderIdeas(ideas);
-      } catch {
-        showMessage('Er ging iets mis. Probeer opnieuw.');
+      } catch (error) {
+        showMessage(getReadableError(error));
         renderIdeas([]);
       } finally {
         setLoading(false);
@@ -412,7 +412,7 @@
       try {
         const response = await fetch(API_URL, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          // Geen custom Content-Type header: voorkomt CORS preflight voor simpele POST.
           body: JSON.stringify({ action: 'submit', name: normalizedDisplay })
         });
         if (!response.ok) throw new Error('Submit mislukt.');
@@ -420,8 +420,8 @@
         showMessage('Bedankt voor je idee!');
         input.value = '';
         await loadIdeas();
-      } catch {
-        showMessage('Er ging iets mis. Probeer opnieuw.');
+      } catch (error) {
+        showMessage(getReadableError(error));
       } finally {
         setLoading(false);
       }
@@ -443,7 +443,7 @@
       try {
         const response = await fetch(API_URL, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          // Geen custom Content-Type header: voorkomt CORS preflight voor simpele POST.
           body: JSON.stringify({ action: 'vote', id: String(id) })
         });
         if (!response.ok) throw new Error('Stem mislukt.');
@@ -451,8 +451,8 @@
         setVoteBlock(id);
         showMessage('Je stem is geteld!');
         await loadIdeas();
-      } catch {
-        showMessage('Er ging iets mis. Probeer opnieuw.');
+      } catch (error) {
+        showMessage(getReadableError(error));
       } finally {
         setLoading(false);
       }
@@ -549,6 +549,15 @@
     function isApiConfigured() {
       const value = String(API_URL || '').trim();
       return value && !value.includes('PASTE_GOOGLE_APPS_SCRIPT_URL_HERE');
+    }
+
+    function getReadableError(error) {
+      // Browser geeft bij CORS meestal een TypeError: Failed to fetch.
+      const message = String(error && error.message ? error.message : '');
+      if (error instanceof TypeError || message.toLowerCase().includes('failed to fetch')) {
+        return 'Verbinding geblokkeerd (CORS). Controleer Apps Script deploy + toegang.';
+      }
+      return 'Er ging iets mis. Probeer opnieuw.';
     }
   </script>
 </body>
