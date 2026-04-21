@@ -590,8 +590,7 @@
         }
 
         const totalVotes = sorted.reduce((sum, item) => sum + item.votes, 0);
-        const inhabitants = totalVotes + sorted.length;
-        counterEl.textContent = `👥 ${inhabitants} inwoners hebben meegedacht`;
+        counterEl.textContent = `👥 ${totalVotes} inwoners hebben meegedacht`;
 
         let highlightedFound = false;
         sorted.forEach((idea) => {
